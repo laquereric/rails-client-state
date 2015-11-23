@@ -1,16 +1,26 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+p lib = File.expand_path('../lib', 'rails_client_state')
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rails/client/state/version'
+require 'rails_client_state/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rails-client-state"
-  spec.version       = Rails::Client::State::VERSION
+  spec.version       = RailsClientState::VERSION
   spec.authors       = ["Eric Laquer"]
   spec.email         = ["LaquerEric@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = 'Create and maintain a predictable client state container with a RAILS application'
+  spec.description   = <<-eos
+This gem maps routes to a State object on the client.
+Client code subscribes to State data (show, index)
+Client code publishes State data' (create or update)
+Controller 'get' methods called when Clients subscribe
+Controller 'put' or 'post' methods called when Clients publish data
+Promises sychronize Client operations
+Adds Controller base ClientStateController
+ActionCableController and ActionController support heterogeneous client mix
+ActionCable offers particularly high performance thru concurrancy and thru the elimination of HTTP turn around delays
+  eos
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
 
@@ -26,6 +36,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+  spec.add_dependency "js_routes"
 
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
